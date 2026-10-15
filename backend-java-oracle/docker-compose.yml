@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # Oracle Database 23c Free Developer Edition
+  oracle-db:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: aura-oracle-23c
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PWD=AuraSecret2025
+      - ORACLE_CHARACTERSET=AL32UTF8
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      - ./src/main/resources/schema-oracle.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+
+  # Local Mailpit for testing super admin email alerts
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: aura-mailpit
+    ports:
+      - "1025:1025" # SMTP port
+      - "8025:8025" # Web UI to view incoming emails
+    restart: unless-stopped
+
+volumes:
+  oracle_data:

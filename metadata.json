@@ -1,0 +1,6 @@
+{
+  "name": "Aura Commerce",
+  "description": "Ultra-premium curated commerce platform featuring architectural tech goods, instant checkout, real-time consignment tracking, and merchant operations telemetry.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

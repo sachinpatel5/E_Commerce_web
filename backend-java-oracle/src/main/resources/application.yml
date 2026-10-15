@@ -1,0 +1,59 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: aura-commerce-backend
+  
+  datasource:
+    url: ${ORACLE_JDBC_URL:jdbc:oracle:thin:@//localhost:1521/FREEPDB1}
+    username: ${ORACLE_USERNAME:system}
+    password: ${ORACLE_PASSWORD:AuraSecret2025}
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 25
+
+  # Spring Mail for Super Admin Email Notifications
+  mail:
+    host: ${SMTP_HOST:smtp.gmail.com}
+    port: ${SMTP_PORT:587}
+    username: ${SUPER_ADMIN_EMAIL:sachinpatel808@gmail.com}
+    password: ${SMTP_APP_PASSWORD:your-gmail-app-password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# Super Admin Platform Configuration
+aura:
+  super-admin:
+    email: ${SUPER_ADMIN_EMAIL:sachinpatel808@gmail.com}
+    alert-on-new-order: true
+    alert-on-low-stock: true
+    alert-on-supplier-signup: true
+  jwt:
+    secret: 9a4f2c8d3e7b1a5f6e8d9c0b1a2f3e4d5c6b7a8f9e0d1c2b3a4f5e6d7c8b9a0
+    expiration-ms: 86400000 # 24 hours
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
